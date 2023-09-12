@@ -16,8 +16,7 @@ import json
 
 
 ### Global Variables ###
-# RESCUEFILE = 'donotdelete.json'
-# KVDB = 'oryourdataislost.json'
+
 
 IGNORE_FILES = ['pathbyter.py', 
                 'ransompaid.pem',
