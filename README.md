@@ -58,3 +58,4 @@ The implementations used in Pathbyter differ from the examples on pycryptodome's
 
 
 are as follows: First, Pathbyter uses the included System class path_crawl() method to return a list of all the target files before encryption begins, which streamlines the main attack function, exec_attack(). To override Python's global-interpreter-lock, Pathbyter uses a multiprocessing pool, which will create a number of child processes equaL to the number of CPU cores in the victim system. Pathbyter invokes the multiprocessing poool map function, which takes two arguments: a function and an iterator
+</p>
