@@ -11,9 +11,9 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 1. [Why build Pathbyter?](#History)
 2. [Disclaimer](#Disclaimer)
 3. [Requirements](#Requirements)
-4. [How fast is Pathbyter?](#speed)
+4. [How fast is Pathbyter?](#how-fast-is-pathbyter?)
 5. [Usage](#usage)
-7. [How Pathbyter works](#code)
+7. [How Pathbyter works](#how-pathbyter-works)
 
 ## History
 ***
@@ -30,7 +30,7 @@ Pathbyter uses one non-standard Python librarhy module, pycryptodome ([readthedo
 To install pycryptodome use:
 ```pip install pycryptodome```
 
-## speed
+## How fast is Pathbyter?
 ***
 Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data that would allow me to compare Pathbyter's encryption performacnce to 'real' ransomware in the wild, I used research courtesy of Splunk. 
 
