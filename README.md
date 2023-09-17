@@ -56,7 +56,7 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb DDR4 ram:
 
 ![ALT text](imgs/pbresults.png)
-
+<p align="center">
 | Run | Elapsed Time  |
 | --- | ------------  |
 |  1  | input me      |
@@ -69,7 +69,7 @@ Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb DDR4 ram:
 |  8  | input me      |
 |  9  | input me      |
 | 10  | input me      |
-
+</p>
 Pathbyter's median encryption time was ''. 
 With multiprocessing you can speed up Python programs by a significant multiplier, paritcularly for CPU heavy tasks like encryption.   
 
