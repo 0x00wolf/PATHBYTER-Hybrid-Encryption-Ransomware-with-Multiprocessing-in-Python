@@ -78,15 +78,9 @@ Pathbyter's median encryption time was ''.
 
 With multiprocessing you can speed up Python programs by a significant multiplier, particularly for CPU heavy tasks like encryption.   
 
-Something I observed as common pracitce among the major ransomware variations was optimizing the encryption function by limiting the number of IO calls for each file to one read and write, which included storing the associated encrypted AES key needed to decode the file. They accomplished this by appending the AES key to the encrypted data before writing it back over the original file.
-
-In Pathbyter's case, we invoke an instance of the multiprocessing Pool class, which takes one argument, the number of logical CPUs in the system it is invoked on. Then we use the Pool class's map() method, which takes a function and an iterable. The map method chunks the iterable up dividing it between the number of logical cores, and begins that many processes. In this case the function reads a target file into the variable 'data', generates a new AES key, encrypts the 'data', wraps the AES key in RSA, writes the encrypted data over the original file with the encrypted AES key and its associated nonce appended to the end of the file. 
-
 ## What's in this repository?
 
 ![ALT text](imgs/repotree.png)
-
-There are two versions of Pathbyter in this repository, with the primary difference being how they save the RSA wrapped AES keys generated for every file that's encrypted.
 
 1. The file 'pathbyter-pow.py' is the proof-of-work version, which will generate a dummy file 'helloworld.txt' with one sentence (take a guess), and then encrypt and decypt the dummy file. This version will generate a log file, show useful information to the terminal, and is safe to run (python3 pathbyter-pow.py). The code is intentionally meant to be readable, and broken into logical functions to help the reader understand. This version does not append encrypted AES keys to files, and instead implements a JSONL key-value database for ease of reference in exchange for a subtle speed loss.
 
