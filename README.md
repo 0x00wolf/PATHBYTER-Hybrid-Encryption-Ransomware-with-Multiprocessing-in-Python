@@ -29,7 +29,7 @@ Pathbyter is intended for educational purposes or for approved red team exercise
 
 ## Requirements
 
-Pathbyter uses one non-Standard Python Library module, pycryptodome ([readthedocs])(https://pycryptodome.readthedocs.io/en/latest/)), to gain access to the various cryptographic ciphers that it uses. 
+Pathbyter uses one non-Standard Python Library module, pycryptodome [readthedocs](https://pycryptodome.readthedocs.io/en/latest/)), to gain access to the various cryptographic ciphers that it uses. 
 
 To install pycryptodome use:
 ```pip install pycryptodome```
