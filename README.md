@@ -49,7 +49,8 @@ Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data 
 
 ![ALT text](imgs/splunktests.png)
 
-To use this dataset as a meaningful comparison for Pathbyter I took the following steps: 
+**To use this dataset as a meaningful comparison for Pathbyter I took the following steps:**
+
 1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of a quote from the movie Hackers on repeat (sorry, not sorry). The files being different 'types' is redundant if they are the same size. Splunk used a file corpus which is just a collection of different text documents. File types are identified by the OS via the magic bytes that are at the beginning of every file. We are flipping bits and not interested in the content so a corny movie quote repeated billions of times is more than sufficient.
 2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code.
 3) I let 'er rip, bud.
@@ -73,7 +74,7 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 |  9  | input me      |
 | 10  | input me      |
 
-Pathbyter's median encryption time was ''. 
+**Pathbyter's median encryption time was ''** 
 
 
 With multiprocessing you can speed up Python programs by a significant multiplier, particularly for CPU heavy tasks like encryption.   
