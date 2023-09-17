@@ -49,7 +49,7 @@ Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data 
 
 ![ALT text](imgs/splunktests.png)
 
-To use this dataset as a meaningful comparison for Pathbyter I took the following steps: 
+**To use this dataset as a meaningful comparison for Pathbyter I took the following steps:**
 1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of a quote from the movie Hackers on repeat (sorry, not sorry). The files being different 'types' is redundant if they are the same size. Splunk used a file corpus which is just a collection of different text documents. File types are identified by the OS via the magic bytes that are at the beginning of every file. We are flipping bits and not interested in the content so a corny movie quote repeated billions of times is more than sufficient.
 2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code.
 3) I let 'er rip, bud.
@@ -73,8 +73,7 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 |  9  | input me      |
 | 10  | input me      |
 
-Pathbyter's median encryption time was ''. 
-
+**Pathbyter's median encryption time was:** ''. 
 
 With multiprocessing you can speed up Python programs by a significant multiplier, particularly for CPU heavy tasks like encryption.   
 
@@ -83,8 +82,11 @@ With multiprocessing you can speed up Python programs by a significant multiplie
 ![ALT text](imgs/repotree.png)
 
 - **pathbyterPoC.py** is the proof-of-concept version of Pathbyter, which will generate a series of dummy files and then encrypt and decypt them. It generates a JSON log file, show useful information to the terminal, and is safe to run. Usage: `python3 pathbyterPoC.py`. The code is intentionally meant to be readable, and broken into logical functions to help the reader understand what's happening. When I first made Pathbyter I used a JSONL key-value database to save the encrypted file paths, RSA wrapped AES keys, and their associated nonces. However, after I got everything to work I reworked the code to append the keys and nonces to the encrypted files, which is a common programmatic element in all of the advanced ransomware attacks in the wild. I have included the original exec_ransomware() and ctrl_z_ransomware() functions that use the JSONL kvdb format commented out for reference.
+  
 - The **red-teaming** directory includes the streamlined version of Pathbyter with some minimal argv tooling.
+  
 - The **speed-test** directory contains the ingredients I used to conduct the aforementioned speed tests. This version of Pathbyter has the same main code as the red-teaming version, but without argv tooling, and with added information printed out after each run.
+  
 - The **utils** directory contains test scripts I used to build Pathbyter like getting the size in bytes of a string, and a convenient/portable System class. The System class checks for an internet connection, fetchs a public ip if there is internet, and on instantiation collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux. I plan on expanding the system path in the future to be able to collect information about devices on the local network and other fun features - stay tuned. 
 
 ## How Pathbyter works:
