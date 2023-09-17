@@ -20,12 +20,14 @@ Curious person that I am, I was reading reports by different security researcher
 
 ## Disclaimer
 ***
-Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not endorse the use of this software for any criminal acts, or the misuse or redistribution of this software for anything other than educational and/or legitimate professional reasons. Do not use Pathbyter on a box you don't have permission to run it on. Do give me a star if you like the code!
+Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this softwar, and does not approve of the redistribution of this software for anything besides educational and/or legitimate professional reasons. **Do not use Pathbyter on a box you don't have permission to run it on.** Do give me a star if you like the code!
 
 ## Requirements
 ***
 Pathbyter uses one non-standard Python librarhy module, pycryptodome, to gain access to the various cryptographic ciphers that it uses. 
+
 To install pycryptodome use:
+
 ```pip install pycryptodome```
 [pycryptodome readthedocs](https://pycryptodome.readthedocs.io/en/latest/)
 
