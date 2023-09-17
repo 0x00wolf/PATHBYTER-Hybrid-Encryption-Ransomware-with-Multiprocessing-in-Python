@@ -21,7 +21,7 @@ I am a very curious person. While reading security research reports on different
 
 ## Disclaimer
 ***
-Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this softwar, and does not approve of the redistribution of this software for anything besides educational and/or legitimate professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** Do give me a star if you like the code!
+Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** Do give me a star if you like the code!
 
 ## Requirements
 ***
@@ -39,7 +39,11 @@ Splunk:
 
 The researchers at Splunk arrived at the following results:
 ![ALT text](imgs/splunktests.png)
-To use this dataset as a meaningful comparison for Pathbyter I wrote a Python script that generated 100,000 
+
+To use this dataset as a meaningful comparison for Pathbyter I took the following steps: 
+1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of "hello world" on repeat. The files being different 'types' is redundant if the size is the same. We are flipping bits and not interested in the content.
+2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop).
+3) I let 'er rip bud.
 
 With multiprocessing you can speed up Python programs by a significant multiplier, paritcularly for CPU heavy tasks like encryption.   
 
