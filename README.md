@@ -58,7 +58,7 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 
 ![ALT text](imgs/pbresults.png)
 
-**Pathbyter's elapsed time to encrypt 100,000 512kb files over 10 runs:
+**Pathbyter's elapsed time to encrypt 100,000 512kb files over 10 runs:**
 
 | Run | Elapsed Time  |
 | --- | ------------  |
