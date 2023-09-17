@@ -97,20 +97,35 @@ Pathbyter only uses in-memory encryption. This means that decryption keys, the s
 ## How Pathbyter works:
 
 **The attack**
+
 1) At runtime Pathbyter generates an instance of the System class, checking for a public ip, and gathering information about the victim box. It then uses a System class method to generate a target id card, which includes a UUID as well as network, user and hardware information.
+
 2) Pathbyter generates a new AES 128-bit key and uses it to encrypt the id card with an AES CBC cipher.
+
 3) Using the attacker's hardcoded  RSA-4096 public key, Pathbyter encrypts the AES key.
+
 4) Then the encrypted id card, associated encrypted AES key and the key's initialization vector are written to a JSON database, 'donotdelete.json'.
+
 5) Next, a new session RSA keypair is generated.
+
 - A note: A session keypair is generated at the start of each attack, so that the victim is able to share the encrypted session RSA private key with the attackers, and they can return the unencrypted private key, without compromising the confidentiality of the attacker's private key associated with the hardcoded public key used in every attack.
-7) The session RSA private key is immediately encrypted with a new AES key in memory and function scope, the new AES key is wrapped with the attacker's public key, and the necessary information is added to the JSON decryption stub.
-8) The session RSA public key is returned to the main program ready to encrypt.
-9) Pathbyter uses the System.path_crawl() method to generate a list of a target files.
-10) Pathbyter generates a multiprocessing Pool class instance, which takes one argument - the number of processors to generate new processes with.
-11) Pathbyter uses the Pool class' map method, which takes two arguments, a function and an iterable. The map method splits up the iterable equally among the processes in the pool, and then runs the function asynchronously on the different processes, each passing their set of variables one at a time to the function in a loop until all are finished.
-12) The attack function: opens the target file in read bytes mode, reads the file's bytes into a variable > generates a new AES-128 bit key > uses an AES CTR cipher to encrypt the file data > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > writes the encrypted data and concatenates the wrapped AES key and nonce to the end of the file.
+
+6) The session RSA private key is immediately encrypted with a new AES key in memory and function scope, the new AES key is wrapped with the attacker's public key, and the necessary information is added to the JSON decryption stub.
+
+7) The session RSA public key is returned to the main program ready to encrypt.
+
+8) Pathbyter uses the System.path_crawl() method to generate a list of a target files.
+
+9) Pathbyter generates a multiprocessing Pool class instance, which takes one argument - the number of processors to generate new processes with.
+
+10) Pathbyter uses the Pool class' map method, which takes two arguments, a function and an iterable. The map method splits up the iterable equally among the processes in the pool, and then runs the function asynchronously on the different processes, each passing their set of variables one at a time to the function in a loop until all are finished.
+
+11) The attack function: opens the target file in read bytes mode, reads the file's bytes into a variable > generates a new AES-128 bit key > uses an AES CTR cipher to encrypt the file data > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > writes the encrypted data and concatenates the wrapped AES key and nonce to the end of the file.
+
 12) After the encryption process is finished, Pathbyter appends '.crypt' to all of the filenames in the target files list.
+
 13) Finally Pathbyter will print out the encryption time instead of present a ransom note.
   
 **Decryption**
+
 The decryption process is completely unconcerned with speed. It uses a System.path_crawl() to collect all the files that end in .crypt and decrypts them one at a time. It slices the last 314 bytes off of each file when it opens them in read bytes mode to recover the encrypted AES key and nonce. It writes the unencrypted RSA public key out, which is kind of unthematic in that an attacker would do this remotely, but it was convenient to just have the private key sitting in the same folder.
