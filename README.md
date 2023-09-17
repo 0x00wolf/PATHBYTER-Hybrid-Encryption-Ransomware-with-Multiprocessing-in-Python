@@ -9,7 +9,7 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 
 ## Table of Contents
 
-1. [Why build Pathbyter?](#why-build-pathbyter?)
+1. [Why build Pathbyter?](#why-build-pathbyter)
 2. [Disclaimer](#Disclaimer)
 3. [Requirements](#Requirements)
 4. [How fast is Pathbyter?](#how-fast-is-pathbyter?)
