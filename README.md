@@ -7,7 +7,6 @@
 Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware that emulates the advanced tactics employed in the development of malware like Conti, REvil, WannaCy, Lockbit, and Ryuk. 
 
 ## Table of Contents
----
 1. [Why build Pathbyter?](#History)
 2. [Disclaimer](#Disclaimer)
 3. [Requirements](#Requirements)
@@ -16,22 +15,22 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 7. [How Pathbyter works](#how-pathbyter-works)
 ---
 ## History
----
+
 I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter.
-
+---
 ## Disclaimer
----
-Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** Do give me a star if you like the code!
 
-## Requirements
+Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** Do give me a star if you like the code!
 ---
+## Requirements
+
 Pathbyter uses one non-standard Python librarhy module, pycryptodome ([readthedocs](https://pycryptodome.readthedocs.io/en/latest/)), to gain access to the various cryptographic ciphers that it uses. 
 
 To install pycryptodome use:
 ```pip install pycryptodome```
-
-## How fast is Pathbyter?
 ---
+## How fast is Pathbyter?
+
 Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data that would allow me to compare Pathbyter's encryption performacnce to 'real' ransomware in the wild, I used research courtesy of Splunk. 
 
 Splunk:
@@ -45,6 +44,7 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of "hello world" on repeat. The files being different 'types' is redundant if the size is the same. We are flipping bits and not interested in the content.
 2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop).
 3) I let 'er rip bud.
+---
 
 With multiprocessing you can speed up Python programs by a significant multiplier, paritcularly for CPU heavy tasks like encryption.   
 
