@@ -1,3 +1,4 @@
+# A portable class I made for fetching useful information about a box.
 from requests import get
 from requests.exceptions import RequestException
 from platform import processor, architecture, machine
@@ -6,7 +7,7 @@ from os import getlogin, cpu_count, system, walk
 from os.path import join, expanduser
 from uuid import uuid4
 
-# A portable class I made for fetching useful information about a box.
+
 class System:
     def __init__(self):
         self.inet_connection = self.__check_inet_connection()
