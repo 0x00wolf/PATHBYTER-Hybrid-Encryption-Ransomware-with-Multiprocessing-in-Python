@@ -1,4 +1,5 @@
-# A portable class I made for fetching useful information about a box.
+"""A portable class I made for fetching various information about a box. It tests for internet connection, fetchs the public IP if there is a connection, 
+and on instantiation collects a number of other pieces of information for easy reference. The System class path_crawl method is also very useful."""
 from requests import get
 from requests.exceptions import RequestException
 from platform import processor, architecture, machine
