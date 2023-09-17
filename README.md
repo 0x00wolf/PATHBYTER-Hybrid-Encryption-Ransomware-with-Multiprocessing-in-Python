@@ -55,7 +55,7 @@ Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data 
 2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code.
 3) I let 'er rip, bud.
 
-**An example of Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb DDR4 ram:**
+**An example of Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb ram:**
 
 ![ALT text](imgs/pbresults.png)
 
@@ -76,25 +76,41 @@ Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data 
 
 **Pathbyter's median encryption time was ''** 
 
+**Speed 2: Cruise Control (Observerations):**
+Encryption is a CPU heavy task. If you have one process encrypting all the files, it is obviously slower than spawning as many new processes are there are logical processors present, splitting the target files up equally between them, and having each process encrypt their share of the files asynchronously. Basically, with multiprocessing you can speed up encrypting files, even if the code is written in a scripted language like Python, and it can be by a significant multiplier. 
 
-With multiprocessing you can speed up Python programs by a significant multiplier, particularly for CPU heavy tasks like encryption.   
+Appending the encrypted keys to the files means that you can significantly limit the number of read and write operations that the processes have to perform over a large number of files. You read the file into a variable in write bytes mode and then close it > generate a new AES-128 bit key > encrypts the variable with the new key and an AES CTR cipher > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > write the encrypted data and the key. So for each file you only read and write to the disk once. Pathbyter uses the fastest AES cipher, CTR or Counter mode to encrypt files, but AES CBC to encrypt the RSA session private key (just to spice things up a bit).
+
+Pathbyter only uses in-memory encryption. This means that decryption keys, the session RSA private key or any of the AES keys, are never written to disk before being encrypted. This is something malicious actors do to prevent the recovery of the keys by a skilled defender working on behalf of the ransomware victim. Deleted items may still be stored on the same sector of the disk if that portion of the harddrive hadn't been written oversince. To capture a key in-memory, a snapshot of the ram would need to have been taken at the moment of encryption. This method also further limits input and output operations that en-masse can bog down the processors and lengthen the overall runtime.
 
 ## What's in this repository?
 
 ![ALT text](imgs/repotree.png)
 
 - **pathbyterPoC.py** is the proof-of-concept version of Pathbyter, which will generate a series of dummy files and then encrypt and decypt them. It generates a JSON log file, show useful information to the terminal, and is safe to run. Usage: `python3 pathbyterPoC.py`. The code is intentionally meant to be readable, and broken into logical functions to help the reader understand what's happening. When I first made Pathbyter I used a JSONL key-value database to save the encrypted file paths, RSA wrapped AES keys, and their associated nonces. However, after I got everything to work I reworked the code to append the keys and nonces to the encrypted files, which is a common programmatic element in all of the advanced ransomware attacks in the wild. I have included the original exec_ransomware() and ctrl_z_ransomware() functions that use the JSONL kvdb format commented out for reference.
+- **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
 - The **red-teaming** directory includes the streamlined version of Pathbyter with some minimal argv tooling.
 - The **speed-test** directory contains the ingredients I used to conduct the aforementioned speed tests. This version of Pathbyter has the same main code as the red-teaming version, but without argv tooling, and with added information printed out after each run.
-- The **utils** directory contains test scripts I used to build Pathbyter like getting the size in bytes of a string, and a convenient/portable System class. The System class checks for an internet connection, fetchs a public ip if there is internet, and on instantiation collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux. I plan on expanding the system path in the future to be able to collect information about devices on the local network and other fun features - stay tuned. 
+- The **utils** directory contains test scripts I used to build Pathbyter like getting the size in bytes of a string, and a convenient/portable System class. The System class checks for an internet connection, fetchs a public ip if there is internet, and on instantiation collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux. I plan on expanding the system path in the future to be able to collect information about devices on the local network and other fun features - stay tuned.
+
 
 ## How Pathbyter works:
 
-The implementations used in Pathbyter differ from the examples on pycryptodome's read the docs due to the fact that keys are only written to disk after being encrypted. The reason for this is that malicious actors would want to avoid writing to disk is to prevent a skilled defender from recovering the RSA private key even if it was deleted, and thwarting the attack. Pathbyter uses a combination of ciphers, both AES CTR and CBC, as well as RSA. It uses a 4096 bit hardcoded RSA public key (the attacker's key), a 2048-RSA session key pair, and a new AES key for every file that it encrypts.
-
-
-
-are as follows: First, Pathbyter uses the included System class path_crawl() method to return a list of all the target files before encryption begins, which streamlines the main attack function, exec_attack(). To override Python's global-interpreter-lock, Pathbyter uses a multiprocessing pool, which will create a number of child processes equaL to the number of CPU cores in the victim system. Pathbyter invokes the multiprocessing poool map function, which takes two arguments: a function and an iterator
-</p>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+**The attack**
+1) At runtime Pathbyter generates an instance of the System class, checking for a public ip, and gathering information about the victim box. It then uses a System class method to generate a target id card, which includes a UUID as well as network, user and hardware information.
+2) Pathbyter generates a new AES 128-bit key and uses it to encrypt the id card with an AES CBC cipher.
+3) Using the attacker's hardcoded  RSA-4096 public key, Pathbyter encrypts the AES key.
+4) Then the encrypted id card, associated encrypted AES key and the key's initialization vector are written to a JSON database, 'donotdelete.json'.
+5) Next, a new session RSA keypair is generated.
+- A note: A session keypair is generated at the start of each attack, so that the victim is able to share the encrypted session RSA private key with the attackers, and they can return the unencrypted private key, without compromising the confidentiality of the attacker's private key associated with the hardcoded public key used in every attack.
+7) The session RSA private key is immediately encrypted with a new AES key in memory and function scope, the new AES key is wrapped with the attacker's public key, and the necessary information is added to the JSON decryption stub.
+8) The session RSA public key is returned to the main program ready to encrypt.
+9) Pathbyter uses the System.path_crawl() method to generate a list of a target files.
+10) Pathbyter generates a multiprocessing Pool class instance, which takes one argument - the number of processors to generate new processes with.
+11) Pathbyter uses the Pool class' map method, which takes two arguments, a function and an iterable. The map method splits up the iterable equally among the processes in the pool, and then runs the function asynchronously on the different processes, each passing their set of variables one at a time to the function in a loop until all are finished.
+12) The attack function: opens the target file in read bytes mode, reads the file's bytes into a variable > generates a new AES-128 bit key > uses an AES CTR cipher to encrypt the file data > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > writes the encrypted data and concatenates the wrapped AES key and nonce to the end of the file.
+12) After the encryption process is finished, Pathbyter appends '.crypt' to all of the filenames in the target files list.
+13) Finally Pathbyter will print out the encryption time instead of present a ransom note.
+  
+**Decryption**
+The decryption process is completely unconcerned with speed. It uses a System.path_crawl() to collect all the files that end in .crypt and decrypts them one at a time. It slices the last 314 bytes off of each file when it opens them in read bytes mode to recover the encrypted AES key and nonce. It writes the unencrypted RSA public key out, which is kind of unthematic in that an attacker would do this remotely, but it was convenient to just have the private key sitting in the same folder.
