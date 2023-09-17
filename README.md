@@ -30,12 +30,13 @@ Do give me a star if you like the code!
 
 ## Requirements
 
-Pathbyter uses one non-Standard Python Library module, pycryptodome ([readthedocs](https://pycryptodome.readthedocs.io/en/latest/)), to gain access to the various cryptographic ciphers that it uses. 
+Pathbyter uses one non-Standard Python Library module, pycryptodome, to gain access to the various cryptographic ciphers that it provides. 
 
 To install pycryptodome use:
 
 ```pip install pycryptodome```
 
+Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 
 ## How fast is Pathbyter?
 
