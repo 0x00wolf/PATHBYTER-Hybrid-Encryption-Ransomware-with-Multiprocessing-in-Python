@@ -21,10 +21,11 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 
 I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter.
 
-
 ## Disclaimer
 
-Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** Do give me a star if you like the code!
+Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** There isn't a ransom message built into this project for a reason. 
+
+Do give me a star if you like the code!
 
 
 ## Requirements
@@ -40,7 +41,7 @@ To install pycryptodome use:
 
 Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data that would allow me to compare Pathbyter's encryption performacnce to 'real' ransomware in the wild, [I used research courtesy of Splunk.](https://www.splunk.com/en_us/blog/security/gone-in-52-seconds-and-42-minutes-a-comparative-analysis-of-ransomware-encryption-speed.html) 
 
-Splunk:
+**Splunk**:
 >We tested every sample across all four host profiles, which amounted to 400 different ransomware runs (10 families x 10 samples per family x 4 profiles). In order to measure the encryption speed, we gathered 98,561 test files (pdf, doc, xls, etc.) from a public file corpus, totaling 53GB.
 
 The researchers at Splunk arrived at the following results:
@@ -48,11 +49,28 @@ The researchers at Splunk arrived at the following results:
 ![ALT text](imgs/splunktests.png)
 
 To use this dataset as a meaningful comparison for Pathbyter I took the following steps: 
-1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of "hello world" on repeat. The files being different 'types' is redundant if the size is the same. We are flipping bits and not interested in the content.
-2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop).
-3) I let 'er rip bud.
+1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of a quote from the movie Hackers on repeat (sorry, not sorry). The files being different 'types' is redundant if they are the same size. Splunk used a file corpus which is just a collection of different text documents. File types are identified by the OS via the magic bytes that are at the beginning of every file. We are flipping bits and not interested in the content so a corny movie quote repeated billions of times is more than sufficient.
+2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code.
+3) I let 'er rip, bud.
 
+Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb DDR4 ram:
 
+![ALT text](imgs/pbresults.png)
+
+| Run | Elapsed Time  |
+| --- | ------------  |
+|  1  | input me      |
+|  2  | input me      |
+|  3  | input me      |
+|  4  | input me      |
+|  5  | input me      |
+|  6  | input me      |
+|  7  | input me      |
+|  8  | input me      |
+|  9  | input me      |
+| 10  | input me      |
+
+Pathbyter's median encryption time was ''. 
 With multiprocessing you can speed up Python programs by a significant multiplier, paritcularly for CPU heavy tasks like encryption.   
 
 Something I observed as common pracitce among the major ransomware variations was optimizing the encryption function by limiting the number of IO calls for each file to one read and write, which included storing the associated encrypted AES key needed to decode the file. They accomplished this by appending the AES key to the encrypted data before writing it back over the original file.
@@ -60,6 +78,8 @@ Something I observed as common pracitce among the major ransomware variations wa
 In Pathbyter's case, we invoke an instance of the multiprocessing Pool class, which takes one argument, the number of logical CPUs in the system it is invoked on. Then we use the Pool class's map() method, which takes a function and an iterable. The map method chunks the iterable up dividing it between the number of logical cores, and begins that many processes. In this case the function reads a target file into the variable 'data', generates a new AES key, encrypts the 'data', wraps the AES key in RSA, writes the encrypted data over the original file with the encrypted AES key and its associated nonce appended to the end of the file. 
 
 ## What's in this repository?
+
+![ALT text](imgs/repotree.png)
 
 There are two versions of Pathbyter in this repository, with the primary difference being how they save the RSA wrapped AES keys generated for every file that's encrypted.
 
