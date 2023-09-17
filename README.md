@@ -58,6 +58,8 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 
 ![ALT text](imgs/pbresults.png)
 
+**Pathbyter's elapsed time to encrypt 100,000 512kb files over 10 runs:
+
 | Run | Elapsed Time  |
 | --- | ------------  |
 |  1  | input me      |
@@ -72,6 +74,8 @@ To use this dataset as a meaningful comparison for Pathbyter I took the followin
 | 10  | input me      |
 
 Pathbyter's median encryption time was ''. 
+
+
 With multiprocessing you can speed up Python programs by a significant multiplier, particularly for CPU heavy tasks like encryption.   
 
 Something I observed as common pracitce among the major ransomware variations was optimizing the encryption function by limiting the number of IO calls for each file to one read and write, which included storing the associated encrypted AES key needed to decode the file. They accomplished this by appending the AES key to the encrypted data before writing it back over the original file.
