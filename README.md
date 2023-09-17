@@ -45,12 +45,6 @@ Something I observed as common pracitce among the major ransomware variations wa
 
 In Pathbyter's case, we invoke an instance of the multiprocessing Pool class, which takes one argument, the number of logical CPUs in the system it is invoked on. Then we use the Pool class's map() method, which takes a function and an iterable. The map method chunks the iterable up dividing it between the number of logical cores, and begins that many processes. In this case the function reads a target file into the variable 'data', generates a new AES key, encrypts the 'data', wraps the AES key in RSA, writes the encrypted data over the original file with the encrypted AES key and its associated nonce appended to the end of the file. 
 
-## Dependencies
-***
-Pathbyter is written  almost entirely in vanilla Python 3, with the only non-standard library being`` pycryptodome for it's cryptographic functions. 
-
-***
-
 ## What's in this repository?
 
 There are two versions of Pathbyter in this repository, with the primary difference being how they save the RSA wrapped AES keys generated for every file that's encrypted.
