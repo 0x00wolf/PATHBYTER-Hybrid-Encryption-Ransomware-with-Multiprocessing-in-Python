@@ -19,7 +19,7 @@ import proofofconcept as poc    # Proof-of-concept functions
 ### Global Variables ###
 
 
-IGNORE_FILES = ['pathbyterPoC.py', 
+IGNORE_FILES = ['pathbyterPOC.py', 
                 'ransompaid.pem',
                 'private.pem',
                 'donotdelete.json']
