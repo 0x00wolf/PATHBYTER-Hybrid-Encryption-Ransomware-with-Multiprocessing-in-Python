@@ -30,7 +30,7 @@ I am a very curious person. While reading security research reports on different
 
 Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** There isn't a ransom message built into this project for a reason. 
 
-Do give me a star if you like the code!
+<a class="github-button" href="https://github.com/0x00wolf/PATHBYTER-Hybrid-Encryption-Ransomware-with-Multiprocessing-in-Python" data-icon="octicon-star" aria-label="Star 0x00wolf/PATHBYTER-Hybrid-Encryption-Ransomware-with-Multiprocessing-in-Python on GitHub">Please do give this project a star if you like the code!</a>
 
 
 ***
@@ -50,11 +50,24 @@ Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 
 ![ALT text](imgs/githubrepo.png)
 
-- **pathbyterPoC.py** is the proof-of-concept version of Pathbyter, which will generate a series of dummy files and then encrypt and decypt them. It generates a JSON log file, show useful information to the terminal, and is safe to run. Usage: `python3 pathbyterPoC.py`. The code is intentionally meant to be readable, and broken into logical functions to help the reader understand what's happening. When I first made Pathbyter I used a JSONL key-value database to save the encrypted file paths, RSA wrapped AES keys, and their associated nonces. However, after I got everything to work I reworked the code to append the keys and nonces to the encrypted files, which is a common programmatic element in all of the advanced ransomware attacks in the wild. I have included the original exec_ransomware() and ctrl_z_ransomware() functions that use the JSONL kvdb format commented out for reference.
-- **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
-- The **red-teaming** directory includes the streamlined version of Pathbyter with some minimal argv tooling.
-- The **speed-test** directory contains the ingredients I used to conduct the aforementioned speed tests. This version of Pathbyter has the same main code as the red-teaming version, but without argv tooling, and with added information printed out after each run.
-- The **utils** directory contains test scripts I used to build Pathbyter like getting the size in bytes of a string, and a convenient/portable System class. The System class checks for an internet connection, fetchs a public ip if there is internet, and on instantiation collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux. I plan on expanding the system path in the future to be able to collect information about devices on the local network and other fun features - stay tuned.
+-**pathbyter.py**: is the clean code version of Pathbyter for individuals who are just interested in diving into the code.
+-**private.pem**: is the associated RSA private key to the hardcoded RSA public key found in every version of Pathbyter in this repository.
+
+-**pathbyter-POC Directory** 
+    -**pathbyter-POC.py**: This is the 100% safe to run proof-of-concept version of Pathbyter. **This version of Pathbyter is specifically intended for students** and programmers interested in learning about how modern ransomware functions on a programmatic level. Running this program will walk you through a ransomware attack without any risk of encrypting your data. To learn more about the proof-of-concept version, see the [Usage](#usage) section below. 
+    -**proof-of-concept.py**: An additional 100 lines of code that adds supporting logic to pathbyer-POC.py. **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
+
+-**red-teaming Directory**
+  -**pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
+
+-**speed-test Directory**
+  -**speedtest.py**: This is the version of Pathbyter I used to run the speed tests.     
+  -**testfilegenerator.py**: A simply Python script to create a series of files of a specified length.
+
+-**utils Directory**
+  -**rsa-keygen.py**: An RSA keypair generator.
+  -**size.py**: A simple script I created to test the length of the RSA wrapped AES keys to append them to the end of encrypted files.
+  -**system.py**: A standalone version of the System class that provides a lot of the functionality for Pathbyter. On instantiation, a System class object checks for an internet connection, fetchs a public ip if there is internet, and collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux.
 
 
 ***
