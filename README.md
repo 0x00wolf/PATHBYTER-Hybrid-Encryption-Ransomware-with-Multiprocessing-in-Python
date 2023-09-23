@@ -50,24 +50,24 @@ Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 
 ![ALT text](imgs/githubrepo.png)
 
--**pathbyter.py**: is the clean code version of Pathbyter for individuals who are just interested in diving into the code.
--**private.pem**: is the associated RSA private key to the hardcoded RSA public key found in every version of Pathbyter in this repository.
+- **pathbyter.py**: is the clean code version of Pathbyter for individuals who are just interested in diving into the code.
+- **private.pem**: is the associated RSA private key to the hardcoded RSA public key found in every version of Pathbyter in this repository.
 
--**pathbyter-POC Directory** 
-    -**pathbyter-POC.py**: This is the 100% safe to run proof-of-concept version of Pathbyter. **This version of Pathbyter is specifically intended for students** and programmers interested in learning about how modern ransomware functions on a programmatic level. Running this program will walk you through a ransomware attack without any risk of encrypting your data. To learn more about the proof-of-concept version, see the [Usage](#usage) section below. 
-    -**proof-of-concept.py**: An additional 100 lines of code that adds supporting logic to pathbyer-POC.py. **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
+- **pathbyter-POC Directory**
+    - **pathbyter-POC.py**: This is the 100% safe to run proof-of-concept version of Pathbyter. **This version of Pathbyter is specifically intended for students** and programmers interested in learning about how modern ransomware functions on a programmatic level. Running this program will walk you through a ransomware attack without any risk of encrypting your data. To learn more about the proof-of-concept version, see the [Usage](#usage) section below. 
+    - **proof-of-concept.py**: An additional 100 lines of code that adds supporting logic to pathbyer-POC.py. **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
 
 -**red-teaming Directory**
-  -**pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
+    -**pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
 
--**speed-test Directory**
-  -**speedtest.py**: This is the version of Pathbyter I used to run the speed tests.     
-  -**testfilegenerator.py**: A simply Python script to create a series of files of a specified length.
+- **speed-test Directory**
+    - **speedtest.py**: This is the version of Pathbyter I used to run the speed tests.     
+    - **testfilegenerator.py**: A simply Python script to create a series of files of a specified length.
 
--**utils Directory**
-  -**rsa-keygen.py**: An RSA keypair generator.
-  -**size.py**: A simple script I created to test the length of the RSA wrapped AES keys to append them to the end of encrypted files.
-  -**system.py**: A standalone version of the System class that provides a lot of the functionality for Pathbyter. On instantiation, a System class object checks for an internet connection, fetchs a public ip if there is internet, and collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux.
+- **utils Directory**
+    - **rsa-keygen.py**: An RSA keypair generator.
+    - **size.py**: A simple script I created to test the length of the RSA wrapped AES keys to append them to the end of encrypted files.
+    - **system.py**: A standalone version of the System class that provides a lot of the functionality for Pathbyter. On instantiation, a System class object checks for an internet connection, fetchs a public ip if there is internet, and collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux.
 
 
 ***
