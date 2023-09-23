@@ -19,12 +19,13 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 8. [How Pathbyter works:](#how-pathbyter-works)
 
 
-
+***
 ## Why build Pathbyter?
 
 I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter.
 
 
+***
 ## Disclaimer
 
 Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** There isn't a ransom message built into this project for a reason. 
@@ -32,7 +33,7 @@ Pathbyter is intended for educational purposes or for approved red team exercise
 Do give me a star if you like the code!
 
 
-
+***
 ## Requirements
 
 Pathbyter uses one non-Standard Python Library module, pycryptodome, to gain access to the various cryptographic ciphers that it provides. 
@@ -44,7 +45,7 @@ To install pycryptodome use:
 Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 
 
-
+***
 ## What's in this repository?
 
 ![ALT text](imgs/githubrepo.png)
@@ -56,11 +57,11 @@ Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 - The **utils** directory contains test scripts I used to build Pathbyter like getting the size in bytes of a string, and a convenient/portable System class. The System class checks for an internet connection, fetchs a public ip if there is internet, and on instantiation collects a sequence of useful information about the box it was created upon. It also has a built in path_crawl() method that can be used to fetch a list of files recursively from a selected parent directory or using os.path.expanduser('~') on Mac, Windows, or Linux. I plan on expanding the system path in the future to be able to collect information about devices on the local network and other fun features - stay tuned.
 
 
-
+***
 ## Usage:
 
 
-
+***
 ## How fast is Pathbyter?
 
 Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data that would allow me to compare Pathbyter's encryption performance to 'real' ransomware in the wild, [I used research courtesy of Splunk.](https://www.splunk.com/en_us/blog/security/gone-in-52-seconds-and-42-minutes-a-comparative-analysis-of-ransomware-encryption-speed.html) 
@@ -121,6 +122,7 @@ Encryption is a CPU heavy task. If you have one process encrypting all the files
 Because malware authors tend to favor low level languages that have a small footprint and are very portable (like C), I believe that the reason for the median speed from Splunk's tests highly contrasting the faster ransomware variants has to do with whether or not they are employing multiprocessing in their code. With Python, I noticed a 3-4 times increase in runtime when I switched to multiprocessing. The fastest variants in Splunks testing were on average 3-4 times faster than the median, with the exception of Lockbit, which is ridiculously fast. The speed increase is coincidentally pretty close. Python would be slower than a compiled language when it came to runtime, so this would explain why Pathbyter is significantly faster than the median, but slower than the fastest examples.
 
 
+***
 ## How Pathbyter works:
 
 **The ransomware attack:**
