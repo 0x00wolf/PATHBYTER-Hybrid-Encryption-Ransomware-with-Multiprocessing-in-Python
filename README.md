@@ -64,9 +64,7 @@ A note: It doesn't matter if the files that are being encrypted different of typ
 
 ![ALT text](imgs/chromebookspeedtest.png)
 
-Pathbyter's maiden voyage, and a runtime time of 77.75 seconds! To meaningfully contrast with Splunk's runtimes we take Pathbyter's runtime of 77.75, multiply by 10 and divide by 60. We get 12.95, which is really 12 minutes and 57 seconds.
-
-**At 12:57, Pathbyter would have placed third in Splunk's testing!** That's more than 3 times faster than the median encryption speed of the ransomware Splunk tested. 
+**Pathbyter encrypted 5gb / 10,000 Files in 77.75 seconds in a VScode terminal on a Chromebook.** To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 77.75 and scale up by ten. So, we multiply 77.75 by 10 and divide by 60. We get 12.95, which is 12:57 seconds.**At 12:57, Pathbyter would have placed third in Splunk's testing! That's more than 3 times faster than the median encryption speed of the ransomware Splunk tested.** 
 
 Admittedly, this was one test and could be an outlier, so moving on to more substantive testing.
 
