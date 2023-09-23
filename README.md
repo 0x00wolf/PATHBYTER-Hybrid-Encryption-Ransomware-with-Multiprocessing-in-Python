@@ -92,12 +92,6 @@ This time I wrote a Python script that generated 100,000 garbage files, each 512
 
 **Pathbyter's median encryption time was ''** 
 
-**Speed 2: Cruise Control (Observerations):**
-Encryption is a CPU heavy task. If you have one process encrypting all the files, it is obviously slower than spawning as many new processes are there are logical processors present, splitting the target files up equally between them, and having each process encrypt their share of the files asynchronously. Basically, with multiprocessing you can speed up encrypting files, even if the code is written in a scripted language like Python, and it can be by a significant multiplier. 
-
-Appending the encrypted keys to the files means that you can significantly limit the number of read and write operations that the processes have to perform over a large number of files. You read the file into a variable in write bytes mode and then close it > generate a new AES-128 bit key > encrypts the variable with the new key and an AES CTR cipher > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > write the encrypted data and the key. So for each file you only read and write to the disk once. Pathbyter uses the fastest AES cipher, CTR or Counter mode to encrypt files, but AES CBC to encrypt the RSA session private key (just to spice things up a bit).
-
-Pathbyter only uses in-memory encryption. This means that decryption keys, the session RSA private key or any of the AES keys, are never written to disk before being encrypted. This is something malicious actors do to prevent the recovery of the keys by a skilled defender working on behalf of the ransomware victim. Deleted items may still be stored on the same sector of the disk if that portion of the harddrive hadn't been written oversince. To capture a key in-memory, a snapshot of the ram would need to have been taken at the moment of encryption. This method also further limits input and output operations that en-masse can bog down the processors and lengthen the overall runtime.
 
 ## What's in this repository?
 
@@ -128,7 +122,21 @@ Pathbyter only uses in-memory encryption. This means that decryption keys, the s
 - The attack function: opens the target file in read bytes mode, reads the file's bytes into a variable > generates a new AES-128 bit key > uses an AES CTR cipher to encrypt the file data > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > writes the encrypted data and concatenates the wrapped AES key and nonce to the end of the file.
 - After the encryption process is finished, Pathbyter appends '.crypt' to all of the filenames in the target files list.
 - Finally Pathbyter will print out the encryption time instead of present a ransom note.
-  
+
 **Decryption:**
 
 - The decryption process is completely unconcerned with speed. It uses a System.path_crawl() to collect all the files that end in .crypt and decrypts them one at a time. It slices the last 314 bytes off of each file when it opens them in read bytes mode to recover the encrypted AES key and nonce. It writes the unencrypted RSA public key out, which is kind of unthematic in that an attacker would do this remotely, but it was convenient to just have the private key sitting in the same folder.
+
+
+  **Technical Observations:**
+
+Encryption is a CPU heavy task. If you have one process encrypting all the files, it is obviously slower than spawning as many new processes are there are logical processors present, splitting the target files up equally between them, and having each process encrypt their share of the files asynchronously. Basically, with multiprocessing you can speed up encrypting files, even if the code is written in a scripted language like Python, and it can be by a significant multiplier. 
+
+Because malware authors tend to favor low level languages that have a small footprint and are very portable (like C), I believe that the reason for the median speed from Splunk's tests highly contrasting the faster ransomware variants has to do with whether or not they are employing multiprocessing in their code. With Python, I noticed a 3-4 times increase in runtime when I switched to multiprocessing. The fastest variants in Splunks testing were on average 3-4 times faster than the median, with the exception of Lockbit, which is ridiculously fast. The speed increase is coincidentally pretty close. Python would be slower than a compiled language when it came to runtime, so this would explain why Pathbyter is significantly faster than the median, but slower than the fastest examples.
+
+Something I noted frequently in my research was that the various stages of the the cyberattacks in which ransomware get deployed seem to often be misattributed to the ransomware, rather than the hackers themselves. Ransomware does not phish or spear phish, gain access, elevate privileges, achieve persistence, and exfiltrate data before deploying the itself, those are threat actors. This project made me feel that ransomware itself is really a system's administration tool gone awry, and that the ransomware that encrypt slower still ultimately achieve the same effect if deployed, dare I say, intelligently (after hours, etc.).
+
+Pathbyter only uses in-memory encryption. This means that decryption keys, the session RSA private key or any of the AES keys, are never written to disk before being encrypted. This is something malicious actors do to prevent the recovery of the keys by a skilled defender working on behalf of the ransomware victim. Deleted items may still be stored on the same sector of the disk if that portion of the harddrive hadn't been written oversince. To capture a key in-memory, a snapshot of the ram would need to have been taken at the moment of encryption. This method also further limits input and output operations that en-masse can bog down the processors and lengthen the overall runtime.
+
+Appending the encrypted keys to the files means that you can significantly limit the number of read and write operations that the processes have to perform over a large number of files. You read the file into a variable in write bytes mode and then close it > generate a new AES-128 bit key > encrypts the variable with the new key and an AES CTR cipher > wraps the AES key with the session RSA public key > reopens the file in write bytes mode > write the encrypted data and the key. So for each file you only read and write to the disk once. Pathbyter uses the fastest AES cipher, CTR or Counter mode to encrypt files, but AES CBC to encrypt the RSA session private key (just to spice things up a bit).
+
