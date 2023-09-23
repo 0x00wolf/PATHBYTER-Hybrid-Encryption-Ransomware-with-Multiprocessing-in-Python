@@ -4,7 +4,7 @@
 
 # Pathbyter: Hybrid Encryption Ransomware with Multiprocessing in Python
 ***
-Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware that emulates the tactics employed by malware like Lockbit, Conti, REvil, WannaCy, Lockbit, and Ryuk. In many casees, Pathbyter is significantly faster than the names of ransomware that have haunted the dreams of CSOs around the world. This project is an exploration of the more advanced programmatic features employed in the development of modern ransomware. Included in this repository are a number of iterations of Pathbyter, including a 100% safe to execute proof-of-concept version that can walk curious programmers through the process of an attack without any risk of losing data.
+Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware that emulates the tactics employed by malware like Lockbit, Conti, REvil, WannaCy, Lockbit, and Ryuk. Based on speed tests which you can learn about below, Pathbyter is siginificantly faster than ransomware deployed by threat actors in the wild. This project is an exploration of the more advanced programmatic features employed in the development of modern ransomware. Included in this repository are a number of iterations of Pathbyter, including a 100% safe to execute proof-of-concept version that can walk curious programmers through the process of an attack without any risk of losing data.
 
 
 
