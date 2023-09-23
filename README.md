@@ -93,9 +93,15 @@ This time I wrote a Python script that generated 100,000 garbage files, each 512
 **Pathbyter's median encryption time was ''** 
 
 
+**Conclusions:**
+
+Encryption is a CPU heavy task. If you have one process encrypting all the files, it is obviously slower than spawning as many new processes are there are logical processors present, splitting the target files up equally between them, and having each process encrypt their share of the files asynchronously. Basically, with multiprocessing you can speed up encrypting files, even if the code is written in a scripted language like Python, and it can be by a significant multiplier. 
+
+Because malware authors tend to favor low level languages that have a small footprint and are very portable (like C), I believe that the reason for the median speed from Splunk's tests highly contrasting the faster ransomware variants has to do with whether or not they are employing multiprocessing in their code. With Python, I noticed a 3-4 times increase in runtime when I switched to multiprocessing. The fastest variants in Splunks testing were on average 3-4 times faster than the median, with the exception of Lockbit, which is ridiculously fast. The speed increase is coincidentally pretty close. Python would be slower than a compiled language when it came to runtime, so this would explain why Pathbyter is significantly faster than the median, but slower than the fastest examples.
+
 ## What's in this repository?
 
-![ALT text](imgs/repotree.png)
+![ALT text](imgs/githubrepo.png)
 
 - **pathbyterPoC.py** is the proof-of-concept version of Pathbyter, which will generate a series of dummy files and then encrypt and decypt them. It generates a JSON log file, show useful information to the terminal, and is safe to run. Usage: `python3 pathbyterPoC.py`. The code is intentionally meant to be readable, and broken into logical functions to help the reader understand what's happening. When I first made Pathbyter I used a JSONL key-value database to save the encrypted file paths, RSA wrapped AES keys, and their associated nonces. However, after I got everything to work I reworked the code to append the keys and nonces to the encrypted files, which is a common programmatic element in all of the advanced ransomware attacks in the wild. I have included the original exec_ransomware() and ctrl_z_ransomware() functions that use the JSONL kvdb format commented out for reference.
 - **private.pem** is the associated private key to the hardcoded public key used in every iteration of Pathbyter in this repo.
@@ -128,11 +134,7 @@ This time I wrote a Python script that generated 100,000 garbage files, each 512
 - The decryption process is completely unconcerned with speed. It uses a System.path_crawl() to collect all the files that end in .crypt and decrypts them one at a time. It slices the last 314 bytes off of each file when it opens them in read bytes mode to recover the encrypted AES key and nonce. It writes the unencrypted RSA public key out, which is kind of unthematic in that an attacker would do this remotely, but it was convenient to just have the private key sitting in the same folder.
 
 
-  **Technical Observations:**
-
-Encryption is a CPU heavy task. If you have one process encrypting all the files, it is obviously slower than spawning as many new processes are there are logical processors present, splitting the target files up equally between them, and having each process encrypt their share of the files asynchronously. Basically, with multiprocessing you can speed up encrypting files, even if the code is written in a scripted language like Python, and it can be by a significant multiplier. 
-
-Because malware authors tend to favor low level languages that have a small footprint and are very portable (like C), I believe that the reason for the median speed from Splunk's tests highly contrasting the faster ransomware variants has to do with whether or not they are employing multiprocessing in their code. With Python, I noticed a 3-4 times increase in runtime when I switched to multiprocessing. The fastest variants in Splunks testing were on average 3-4 times faster than the median, with the exception of Lockbit, which is ridiculously fast. The speed increase is coincidentally pretty close. Python would be slower than a compiled language when it came to runtime, so this would explain why Pathbyter is significantly faster than the median, but slower than the fastest examples.
+  
 
 Something I noted frequently in my research was that the various stages of the the cyberattacks in which ransomware get deployed seem to often be misattributed to the ransomware, rather than the hackers themselves. Ransomware does not phish or spear phish, gain access, elevate privileges, achieve persistence, and exfiltrate data before deploying the itself, those are threat actors. This project made me feel that ransomware itself is really a system's administration tool gone awry, and that the ransomware that encrypt slower still ultimately achieve the same effect if deployed, dare I say, intelligently (after hours, etc.).
 
