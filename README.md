@@ -61,7 +61,7 @@ Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
 
 -**red-teaming Directory**
     
-    -**pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
+    - **pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
 
 - **speed-test Directory**
    
