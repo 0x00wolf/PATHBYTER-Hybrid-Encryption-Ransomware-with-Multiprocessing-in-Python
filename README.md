@@ -49,17 +49,35 @@ Pathbyter, as it says in the intro blurb, is wicked fast. To generate test data 
 
 ![ALT text](imgs/splunktests.png)
 
-**To use this dataset as a meaningful comparison for Pathbyter I took the following steps:**
 
-1) I wrote a Python script that generated 100,000 garbage files, each 512kb, full of a quote from the movie Hackers on repeat (sorry, not sorry). The files being different 'types' is redundant if they are the same size. Splunk used a file corpus which is just a collection of different text documents. File types are identified by the OS via the magic bytes that are at the beginning of every file. We are flipping bits and not interested in the content so a corny movie quote repeated billions of times is more than sufficient.
-2) I streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code.
-3) I let 'er rip, bud.
+**Initial Testing**
 
-**An example of Pathbyter's results on a Windows 10 pc with a Ryzen 5800x CPU and 32Gb ram:**
+I did most of the development for Pathbyter in VScode on my Pixelbook Go, so it was an easy choice for my first round of testing. Due to disk constraints I used a scaled down version of the splunk test:
+
+I generated 10,000 files at 512 kb. The contents of each file was "Hello World!" repeated many times. 
+
+I also streamlined Pathbyter's code (dropped internal function calls for the main attack loop), to try and improve optimization at runtime for a reduction in the cleanliness of the code. I used the variant of Pathbyter that appends keys to the file, and didn't bother changing the name of the encrypted files.
+
+A note: It doesn't matter if the files that are being encrypted different of types if they are the same size. Splunk's researchers used a file corpus for their data, which is a collection of different text documents. File types are identified by the OS via the magic bytes at the start of the file. The filetype and the substance of its contents are irrelevant in regard to the time it takes to encrypt the file, only the size is important.
+
+**The Outcome:**
+
+![ALT text](imgs/chromebookspeedtest.png)
+
+Pathbyter's maiden voyage, and a runtime time of 77.75 seconds! To meaningfully contrast with Splunk's runtimes we take Pathbyter's runtime of 77.75, multiply by 10 and divide by 60. We get 12.95, which is really 12 minutes and 57 seconds.
+
+**At 12:57, Pathbyter would have placed third in Splunk's testing!** That's more than 3 times faster than the median encryption speed of the ransomware Splunk tested. 
+
+Admittedly, this was one test and could be an outlier, so moving on to more substantive testing.
+
+
+**Testing Round Two: The Full Monty**
+
+This time I wrote a Python script that generated 100,000 garbage files, each 512kb, filled with a quote from the movie Hackers repeated many times. I used a desktop running Windows 10, with a Ryzen 5800x CPU, 32gb ddr5 3600mhz memory, and an NVME 4 ssd.
 
 ![ALT text](imgs/pbresults.png)
 
-**Pathbyter's elapsed time to encrypt 100,000 512kb files over 10 runs:**
+**Pathbyter's performance during the second round of testing:**
 
 | Run | Elapsed Time  |
 | --- | ------------  |
