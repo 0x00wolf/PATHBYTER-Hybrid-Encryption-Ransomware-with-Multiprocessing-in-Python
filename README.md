@@ -58,7 +58,7 @@ Check out the [readthedocs](https://pycryptodome.readthedocs.io/en/latest/).
     - **pathbyter-POC.py**: This is the 100% safe to run proof-of-concept version of Pathbyter. This version of Pathbyter is specifically intended for students and programmers interested in learning about how modern ransomware functions on a programmatic level. Running this program will walk you through a ransomware attack without any risk of encrypting your data. To learn more about the proof-of-concept version, see the [Usage](#usage) section below. 
     - **proof-of-concept.py**: An additional 100 lines of code that adds supporting logic to pathbyer-POC.py.
 
--**red-teaming Directory**
+- **red-teaming Directory**
     - **pathbyter-v2.py**: A streamlined version of Pathbyter with some minimal argv tooling.
 
 - **speed-test Directory**
