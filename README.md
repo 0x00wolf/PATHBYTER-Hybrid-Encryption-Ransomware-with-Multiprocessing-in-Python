@@ -113,7 +113,7 @@ A note: It doesn't matter if the files that are being encrypted different of typ
 To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 78.75 and scale up by ten. So, we multiply 78.75 by 10 and divide by 60. We get 13.125, which is approximately 13:08 seconds. With a total runtime of 12:57, Pathbyter would have placed third in Splunk's testing, which is more than 3 times faster than the median encryption speed of the ransomware Splunk tested.
 
 
-**Round 2: On Windows 10 PC**
+**Round 2: Splunk's full test on a Desktop computer running Windows 10**
 
 This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer has a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. 
 
