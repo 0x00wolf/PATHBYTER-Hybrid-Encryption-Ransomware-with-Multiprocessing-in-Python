@@ -108,11 +108,18 @@ To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 
 With a total runtime of 12:57, Pathbyter would have placed third in Splunk's testing, which is more than 3 times faster than the median encryption speed of the ransomware Splunk tested.
 
 
-**Testing Round Two: The Full Monty**
 
-This time I wrote a Python script that generated 100,000 garbage files, each 512kb, filled with a quote from the movie Hackers repeated many times. I used a desktop running Windows 10, with a Ryzen 5800x CPU, 32gb ddr5 3600mhz memory, and an NVME 4 ssd.
+
+**Round 2: On Windows 10 PC**
+
+This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer has a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. The results were... impressive.
 
 ![ALT text](imgs/pathbyter.png)
+
+**A total runtime of 10:37!!!**
+
+That's pretty fast. That would have Pathbyter placing third on Splunk's tests. Not bad for Python.
+
 
 **Pathbyter's performance during the second round of testing:**
 
