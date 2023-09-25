@@ -4,8 +4,7 @@
 
 # Pathbyter: Hybrid Encryption Ransomware with Multiprocessing in Python
 ***
-Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware that emulates the tactics employed by malware like Lockbit, Conti, REvil, WannaCy, Lockbit, and Ryuk. Based on speed tests which you can learn about below, Pathbyter is siginificantly faster than ransomware deployed by threat actors in the wild. This project is an exploration of the more advanced programmatic features employed in the development of modern ransomware. Included in this repository are a number of iterations of Pathbyter, including a 100% safe to execute proof-of-concept version that can walk curious programmers through the process of an attack without any risk of losing data.
-
+Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware that emulates the tactics employed by ransomware variants like WannaCry, Lockbit, REvil, Babuk and NotPetya. Based on speed tests which you can learn about below, Pathbyter can encrypt nearly as quickly as the fastest ransomware variants in the wild. This project is an exploration of the more advanced programmatic features employed in the development of modern ransomware in the interests of furthering education on the malware used against enterprises. Included in this repository are a number of iterations of Pathbyter, including a 100% safe to execute proof-of-concept version that can walk curious programmers through the process of an attack without any risk of losing data.
 
 
 ## Table of Contents
@@ -22,13 +21,15 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 ***
 ## Why build Pathbyter?
 
-I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter.
+I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter. As someone ultimately pursuing a career in cybersecurity engineering I think that it's important to understand how malware works on a programmatic level. I believe that ultimately it will enable you to build better tools and create more secure security architecture for your organization. As Sun Tzu said:
+
+Know the enemy and know yourself in a hundred battles you will never be in peril. When you are ignorant of the enemy but know yourself, your chances of winning or losing are equal. If ignorant both of your enemy and of yourself, you are certain in every battle to be in peril.
 
 
 ***
 ## Disclaimer
 
-Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** There isn't a ransom message built into this project for a reason. 
+Pathbyter is intended for educational purposes or for approved red team exercises only. The author does not take any responsibility for the misuse of this software, nor does he approve of the redistribution of this software for anything other than legitimate educational and/or professional reasons. **Do not use Pathbyter on a box you have not been given express permission to run it on.** 
 
 <a class="github-button" href="https://github.com/0x00wolf/PATHBYTER-Hybrid-Encryption-Ransomware-with-Multiprocessing-in-Python" data-icon="octicon-star" aria-label="Star 0x00wolf/PATHBYTER-Hybrid-Encryption-Ransomware-with-Multiprocessing-in-Python on GitHub">Please do give this project a star if you like the code!</a>
 
@@ -103,11 +104,7 @@ A note: It doesn't matter if the files that are being encrypted different of typ
 
 **Over the course of the next 5 runs Pathbyter averaged 78.75 seconds** 
 
-To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 77.75 and scale up by ten. So, we multiply 77.75 by 10 and divide by 60. We get 12.95, which is 12:57 seconds.
-
-With a total runtime of 12:57, Pathbyter would have placed third in Splunk's testing, which is more than 3 times faster than the median encryption speed of the ransomware Splunk tested.
-
-
+To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 78.75 and scale up by ten. So, we multiply 78.75 by 10 and divide by 60. We get 13.125, which is approximately 13:08 seconds. With a total runtime of 12:57, Pathbyter would have placed third in Splunk's testing, which is more than 3 times faster than the median encryption speed of the ransomware Splunk tested.
 
 
 **Round 2: On Windows 10 PC**
@@ -118,15 +115,20 @@ This time I used 100,000 garbage files, each 512kb, filled with a corny quote fr
 
 **A total runtime of 10:37!!!**
 
-That's pretty fast. That would have Pathbyter placing third on Splunk's tests. Not bad for Python.
+That's pretty fast. That would have Pathbyter placing third on Splunk's tests. Not bad for Python. Then I ran the test a second time and for lack of a better expression, the results really popped my wizard.
 
+![ALT text](imgs/pathbyter2.png)
 
-**Pathbyter's performance during the second round of testing:**
+**According to my tests, Pathbyter is nearly as fast as the fastest ransomware active in the wild**
+
+That's pretty fast.
+
+**Round 2: Results over 10 runs**
 
 | Run | Elapsed Time  |
 | --- | ------------  |
 |  1  | 637.15        |
-|  2  | input me      |
+|  2  | 457.13        |
 |  3  | input me      |
 |  4  | input me      |
 |  5  | input me      |
