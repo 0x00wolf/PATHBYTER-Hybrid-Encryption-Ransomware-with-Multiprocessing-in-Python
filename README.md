@@ -119,9 +119,9 @@ This time I used 100,000 garbage files, each 512kb, filled with a corny quote fr
 
 **The results were... impressive.**
 
-![ALT text](imgs/pathbyter.png)
-
 ![ALT text](imgs/pathbyter2.png)
+
+![ALT text](imgs/pathbyter4.png)
 
 ![ALT text](imgs/pathbyter3.png)
 
@@ -133,8 +133,8 @@ That's pretty fast.
 | --- | ------------  |
 |  1  | 637.15        |
 |  2  | 457.13        |
-|  3  | 440.89      |
-|  4  | input me      |
+|  3  | 470.89      |
+|  4  | 469.52      |
 |  5  | input me      |
 |  6  | input me      |
 |  7  | input me      |
