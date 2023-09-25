@@ -136,8 +136,8 @@ That's pretty fast.
 |  3  | 470.89      |
 |  4  | 469.52      |
 |  5  | 454.78      |
-|  6  | input me      |
-|  7  | input me      |
+|  6  | 444.68      |
+|  7  | 445.81      |
 |  8  | input me      |
 |  9  | input me      |
 | 10  | input me      |
