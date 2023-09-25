@@ -115,7 +115,7 @@ To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 
 
 **Round 2: Splunk's full test on a Desktop computer running Windows 10**
 
-This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer has a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. 
+This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer had a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. 
 
 **The results were... impressive.**
 
