@@ -21,9 +21,11 @@ Pathbyter is a lightning-fast and fully functioning proof-of-concept ransomware 
 ***
 ## Why build Pathbyter?
 
-I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter. As someone ultimately pursuing a career in cybersecurity engineering I think that it's important to understand how malware works on a programmatic level. I believe that ultimately it will enable you to build better tools and create more secure security architecture for your organization. As Sun Tzu said:
+I am a very curious person. While reading security research reports on different ransomware strains, I saw a pattern of programmatic features common among them that interested me. I researched Python ransomware projects on Github to see what solutions others had come up with to emulate those features. Almost every example I read encrypted files in an os.walk() loop and then displayed a ransom message asking for Bitcoin. Many lacked most if not all of the elements that I was really curious about. I had some ideas as to how I would go about implementing those features. Mix in some time and creative problem solving and we arrive at Pathbyter. As someone ultimately pursuing a career in cybersecurity engineering I think that it's important to understand how malware works on a programmatic level. I believe that ultimately it will enable you to build better tools and create more secure security architecture for your organization. 
 
-Know the enemy and know yourself in a hundred battles you will never be in peril. When you are ignorant of the enemy but know yourself, your chances of winning or losing are equal. If ignorant both of your enemy and of yourself, you are certain in every battle to be in peril.
+**As Sun Tzu said:**
+
+>Know the enemy and know yourself in a hundred battles you will never be in peril. When you are ignorant of the enemy but know yourself, your chances of winning or losing are equal. If ignorant both of your enemy and of yourself, you are certain in every battle to be in peril.
 
 
 ***
