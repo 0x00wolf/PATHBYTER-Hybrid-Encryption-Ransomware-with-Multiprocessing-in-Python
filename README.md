@@ -119,11 +119,9 @@ This time I used 100,000 garbage files, each 512kb, filled with a corny quote fr
 
 ![ALT text](imgs/pathbyter.png)
 
-**A total runtime of 10:37!!!**
-
-That's pretty fast. That would have Pathbyter placing third on Splunk's tests. Not bad for Python. Then I ran the test a second time and for lack of a better expression, the results really popped my wizard.
-
 ![ALT text](imgs/pathbyter2.png)
+
+![ALT text](img/pathbyter3.png)
 
 **According to my tests, Pathbyter is nearly as fast as the fastest ransomware active in the wild**
 
@@ -135,7 +133,7 @@ That's pretty fast.
 | --- | ------------  |
 |  1  | 637.15        |
 |  2  | 457.13        |
-|  3  | input me      |
+|  3  | 440.89      |
 |  4  | input me      |
 |  5  | input me      |
 |  6  | input me      |
