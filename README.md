@@ -123,7 +123,7 @@ This time I used 100,000 garbage files, each 512kb, filled with a corny quote fr
 
 ![ALT text](imgs/pathbyter2.png)
 
-![ALT text](img/pathbyter3.png)
+![ALT text](imgs/pathbyter3.png)
 
 That's pretty fast.
 
