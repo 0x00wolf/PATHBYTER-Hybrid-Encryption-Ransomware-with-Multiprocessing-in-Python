@@ -97,11 +97,13 @@ I also streamlined Pathbyter's code (dropped internal function calls for the mai
 
 A note: It doesn't matter if the files that are being encrypted different of types if they are the same size. Splunk's researchers used a file corpus for their data, which is a collection of different text documents. File types are identified by the OS via the magic bytes at the start of the file. The filetype and the substance of its contents are irrelevant in regard to the time it takes to encrypt the file, only the size is important.
 
-**The Outcome:**
+**On its first run, Pathbyter encrypted 5gb / 10,000 Files in 77.75 seconds in a VScode terminal on my Chromebook.**
 
 ![ALT text](imgs/chromebookspeedtest.png)
 
-**On its first run, Pathbyter encrypted 5gb / 10,000 Files in 77.75 seconds in a VScode terminal on my Chromebook.** To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 77.75 and scale up by ten. So, we multiply 77.75 by 10 and divide by 60. We get 12.95, which is 12:57 seconds.
+**Over the course of the next 5 runs Pathbyter averaged 78.75 seconds** 
+
+To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 77.75 and scale up by ten. So, we multiply 77.75 by 10 and divide by 60. We get 12.95, which is 12:57 seconds.
 
 With a total runtime of 12:57, Pathbyter would have placed third in Splunk's testing, which is more than 3 times faster than the median encryption speed of the ransomware Splunk tested.
 
@@ -110,13 +112,13 @@ With a total runtime of 12:57, Pathbyter would have placed third in Splunk's tes
 
 This time I wrote a Python script that generated 100,000 garbage files, each 512kb, filled with a quote from the movie Hackers repeated many times. I used a desktop running Windows 10, with a Ryzen 5800x CPU, 32gb ddr5 3600mhz memory, and an NVME 4 ssd.
 
-![ALT text](imgs/pbresults.png)
+![ALT text](imgs/pathbyter.png)
 
 **Pathbyter's performance during the second round of testing:**
 
 | Run | Elapsed Time  |
 | --- | ------------  |
-|  1  | input me      |
+|  1  | 637.15        |
 |  2  | input me      |
 |  3  | input me      |
 |  4  | input me      |
