@@ -115,7 +115,9 @@ To meaningfully contrast with Splunk's runtimes, we take Pathbyter's runtime of 
 
 **Round 2: On Windows 10 PC**
 
-This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer has a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. The results were... impressive.
+This time I used 100,000 garbage files, each 512kb, filled with a corny quote from the movie Hackers repeated many times. The test computer has a Ryzen 5800x CPU, 32 GB DDR5 ram, and an NVME 4 SSD. Admittedly this broke my code, which was only Linux compatible at the time, so after some tinkering I ran the tests. 
+
+**The results were... impressive.**
 
 ![ALT text](imgs/pathbyter.png)
 
@@ -123,11 +125,9 @@ This time I used 100,000 garbage files, each 512kb, filled with a corny quote fr
 
 ![ALT text](img/pathbyter3.png)
 
-**According to my tests, Pathbyter is nearly as fast as the fastest ransomware active in the wild**
-
 That's pretty fast.
 
-**Round 2: Results over 10 runs**
+**Results over 10 runs**
 
 | Run | Elapsed Time  |
 | --- | ------------  |
@@ -141,8 +141,7 @@ That's pretty fast.
 |  8  | input me      |
 |  9  | input me      |
 | 10  | input me      |
-
-**Pathbyter's median encryption time:** 
+|Median| |
 
 **Conclusions:**
 
